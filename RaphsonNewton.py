@@ -4,6 +4,11 @@ from matplotlib import pyplot as plt
 import sympy
 from sympy import Symbol, Derivative
 
+from timeit import default_timer as timer
+
+#Calculate elapsed time
+start = timer()
+
 #GENERAL_PARAMETERS----------------------------------------------------------------------------------------------------#
 graphTitle= "Raphson-Newton Iterations Calculation"
 
@@ -54,6 +59,14 @@ def xi1():
 def error():
     return float((xi1() - xi) / xi1())
 
+#Print elapsed Time
+
+def time():
+    end = timer()
+    print("")
+    print("Time elapsed: ")
+    print(float(end - start))
+
 #ASSIGN X & Y VALUES
 while startLimit < endLimit:
     x_values.append(startLimit)
@@ -72,6 +85,8 @@ def printResult():
     print(error())
 
 printResult()
+
+time()
 
 #PLOTTING--------------------------------------------------------------------------------------------------------------#
 #Styles
