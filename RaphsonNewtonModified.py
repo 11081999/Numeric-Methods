@@ -22,7 +22,7 @@ jump= 0.01
 
 # Estimated point root (ONE ROOT ONLY) #
 xi= 2
-es= 0.00001
+es= 0.0001
 
 #Raphson-Newton method-------------------------------------------------------------------------------------------------#
 def f(x):
@@ -67,7 +67,7 @@ while i <= 50:
 
     # Last iteration -> did not converge #
     if i == 50:
-        print("\nDid not converge in" + " n " + " iterations")
+        print("\nDid not converge in " + str(i) + "iterations")
 
     i+= 1
 
