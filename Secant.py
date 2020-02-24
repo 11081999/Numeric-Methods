@@ -4,11 +4,6 @@ from matplotlib import pyplot as plt
 import sympy
 from sympy import Symbol, Derivative
 
-from timeit import default_timer as timer
-
-# Calculate elapsed time #
-start = timer()
-
 #GENERAL_PARAMETERS----------------------------------------------------------------------------------------------------#
 graphTitle= "Secant Calculation"
 

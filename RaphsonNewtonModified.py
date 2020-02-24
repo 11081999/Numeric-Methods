@@ -22,7 +22,7 @@ jump= 0.01
 
 # Estimated point root (ONE ROOT ONLY) #
 xi= 2
-es= 0.0001
+es= 0.00001
 
 #Raphson-Newton method-------------------------------------------------------------------------------------------------#
 def f(x):
@@ -36,10 +36,17 @@ def df(xi):
     deriv = Derivative(func, x)
     return float(deriv.doit().subs({x: xi}))
 
+def u(x):
+    return float( f(x) / df(x) )
+
+def du(x):
+    return float( ((df(x)*df(x)) - f(x)* df(df(x))) / pow(df(x), 2) )
+
 i= 0
 while i <= 50:
+
     # General Formula #
-    xi1 = float(xi - f(xi) / df(xi))
+    xi1 = float(xi - u(xi) / du(xi))
 
     # Zero check for the function #
     if abs(f( xi + 1 )) < 10**-7:
@@ -85,4 +92,4 @@ ax.grid()
 plt.plot(x_values, y_values, label='Python')
 
 # Plott data #
-plt.show()
+#plt.show()
