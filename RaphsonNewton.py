@@ -1,125 +1,93 @@
 import sys
-sys.path.append(r"C:\Users\rober\AppData\Local\Programs\Python\Python38\Lib\site-packages")
+sys.path.append(r"C:\Users\Roberto\AppData\Local\Programs\Python\Python38-32\Lib\site-packages")
 from matplotlib import pyplot as plt
 import sympy
 from sympy import Symbol, Derivative
 
 from timeit import default_timer as timer
 
-#Calculate elapsed time
+# Calculate elapsed time #
 start = timer()
 
 #GENERAL_PARAMETERS----------------------------------------------------------------------------------------------------#
-graphTitle= "Raphson-Newton Iterations Calculation"
+graphTitle= "Raphson-Newton Calculation"
 
-#Data on the X axis
+# Data on the X axis #
 x_values = []
 x_name= "X"
 
-#Data on the Y axis
+# Data on the Y axis #
 y_values = []
 y_name= "Y"
 
-#Limits
-startLimit= 14
-endLimit= 16
+# Limits of the graph #
+startLimit= 0
+endLimit= 10
 jump= 0.01
 
-#GENERAL
-g= 9.81
-m= 70
-t= 10
-
-#Estimated point root (ONE ROOT ONLY)
+# Estimated point root (ONE ROOT ONLY) #
 xi= 2
+es= 0.001
 
-#FUNCTIONS-------------------------------------------------------------------------------------------------------------#
+#Raphson-Newton method-------------------------------------------------------------------------------------------------#
 def f(x):
-    #i.e
-    #y= x+1
-    #y= pow(x, 2)
-    #y= 4*pow(x, 2) +  7*x + 8
-
-    #Write known funcion
-    #y= g*m*(1-sympy.exp(-x*t/m))/x-40
     y = (x - sympy.exp(-x))
-
     return y
 
-#DERIVATIVE OF THE FUNCTION AT A POINT XI
+# Find derivate of the function f(x) at a point xi #
 def df(xi):
     x = Symbol('x')
     func = f(x)
     deriv = Derivative(func, x)
     return float(deriv.doit().subs({x: xi}))
 
-#XI
-def xi1():
-    return float(xi - ( f(xi)  / df(xi) ))
+i= 0
+while i <= 50:
+    # General Formula #
+    xi1 = float(xi - f(xi) / df(xi))
 
-#"ERROR"
-def ea():
-    return float((xi1() - xi) / xi1())
+    # Zero check for the function #
+    if abs(f( xi + 1 )) < 10**-7:
+        print("No. of iterations: " + str(i + 1))
+        print(xi1)
+        break
 
-#Print elapsed Time
-def time():
-    end = timer()
-    print("")
-    print("Time elapsed: ")
-    print(float(end - start))
+    # Convergence criterion #
+    ea = float( abs( (xi1 - xi) / xi1) )
 
-#ASSIGN X & Y VALUES
+    if ea < es:
+        print("No. of iterations: " + str(i + 1))
+        print(xi1)
+        break
+
+    # Reassignment of the x values #
+    xi = xi1
+
+    # Last iteration -> did not converge #
+    if i == 50:
+        print("\n Did not converge in" + " n " + " iterations")
+
+    i+= 1
+
+#PLOTTING--------------------------------------------------------------------------------------------------------------#
+# Assign X and  Y values to axis #
 while startLimit < endLimit:
     x_values.append(startLimit)
     y_values.append(f(startLimit))
     startLimit = startLimit + jump
 
-def printResult():
-    print("")
-    print("(xi)")
-    print(f(xi))
-    print("derivative at xi")
-    print(df(xi))
-    print("xi_1")
-    print(xi1())
-    print("-Error-")
-    print(ea())
+# Styles #
+"""plt.xkcd()"""
 
-#xi= xi+1
-
-es= 10**-4
-i= 0
-while i <= 50:
-    if f(xi+1) < 10**-7:
-        print("i: " + str(i))
-        print(xi1())
-
-    if ea() < es:
-        print("i: " + str(i))
-        print(xi1())
-
-    xi = xi1()
-
-    if i == 50:
-        print("\n Did not converge in any iterations")
-
-    i+= 1
-
-"""
-printResult()
-time()
-"""
-
-
-#PLOTTING--------------------------------------------------------------------------------------------------------------#
-#Styles
-#plt.xkcd()
-#Names & Tags
+# Add names and tags #
 fig, ax = plt.subplots()
 ax.set(xlabel= x_name, ylabel= y_name, title=graphTitle)
-#Grid
+
+# Add a grid #
 ax.grid()
-#Values
+
+# Values #
 plt.plot(x_values, y_values, label='Python')
-#Plott
-#plt.show()
+
+# Plott data #
+plt.show()
