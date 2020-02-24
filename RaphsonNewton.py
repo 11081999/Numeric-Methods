@@ -1,5 +1,5 @@
 import sys
-sys.path.append(r"C:\Users\Roberto\AppData\Local\Programs\Python\Python38-32\Lib\site-packages")
+sys.path.append(r"C:\Users\rober\AppData\Local\Programs\Python\Python38\Lib\site-packages")
 from matplotlib import pyplot as plt
 import sympy
 from sympy import Symbol, Derivative
@@ -31,9 +31,9 @@ m= 70
 t= 10
 
 #Estimated point root (ONE ROOT ONLY)
-xi= 15.158907921376873
+xi= 2
 
-#FUNCTION-------------------------------------------------------------------------------------------------------------#
+#FUNCTIONS-------------------------------------------------------------------------------------------------------------#
 def f(x):
     #i.e
     #y= x+1
@@ -41,9 +41,11 @@ def f(x):
     #y= 4*pow(x, 2) +  7*x + 8
 
     #Write known funcion
-    y= g*m*(1-sympy.exp(-x*t/m))/x-40
+    #y= g*m*(1-sympy.exp(-x*t/m))/x-40
+    y = (x - sympy.exp(-x))
 
     return y
+
 #DERIVATIVE OF THE FUNCTION AT A POINT XI
 def df(xi):
     x = Symbol('x')
@@ -56,11 +58,10 @@ def xi1():
     return float(xi - ( f(xi)  / df(xi) ))
 
 #"ERROR"
-def error():
+def ea():
     return float((xi1() - xi) / xi1())
 
 #Print elapsed Time
-
 def time():
     end = timer()
     print("")
@@ -75,18 +76,40 @@ while startLimit < endLimit:
 
 def printResult():
     print("")
-    print("F(xi)")
+    print("(xi)")
     print(f(xi))
     print("derivative at xi")
     print(df(xi))
     print("xi_1")
     print(xi1())
     print("-Error-")
-    print(error())
+    print(ea())
 
+#xi= xi+1
+
+es= 10**-4
+i= 0
+while i <= 50:
+    if f(xi+1) < 10**-7:
+        print("i: " + str(i))
+        print(xi1())
+
+    if ea() < es:
+        print("i: " + str(i))
+        print(xi1())
+
+    xi = xi1()
+
+    if i == 50:
+        print("\n Did not converge in any iterations")
+
+    i+= 1
+
+"""
 printResult()
-
 time()
+"""
+
 
 #PLOTTING--------------------------------------------------------------------------------------------------------------#
 #Styles
@@ -99,4 +122,4 @@ ax.grid()
 #Values
 plt.plot(x_values, y_values, label='Python')
 #Plott
-plt.show()
+#plt.show()
