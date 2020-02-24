@@ -1,103 +1,88 @@
 import sys
-sys.path.append(r"C:\Users\rober\AppData\Local\Programs\Python\Python38\Lib\site-packages")
+sys.path.append(r"C:\Users\Roberto\AppData\Local\Programs\Python\Python38-32\Lib\site-packages")
 from matplotlib import pyplot as plt
 import sympy
 from sympy import Symbol, Derivative
 
 from timeit import default_timer as timer
 
-#Calculate elapsed time
+# Calculate elapsed time #
 start = timer()
 
 #GENERAL_PARAMETERS----------------------------------------------------------------------------------------------------#
-graphTitle= "Raphson-Newton Iterations Calculation"
+graphTitle= "Secant Calculation"
 
-#Data on the X axis
+# Data on the X axis #
 x_values = []
 x_name= "X"
 
-#Data on the Y axis
+# Data on the Y axis #
 y_values = []
 y_name= "Y"
 
-#Limits
-startLimit= 14
-endLimit= 16
+# Limits of the graph and jump between points in the graph#
+startLimit= 0
+endLimit= 10
 jump= 0.01
 
-#GENERAL
-g= 9.81
-m= 70
-t= 10
-
-#Estimated point root (ONE ROOT ONLY)
-xi= 2
-xim1= 3
-
-#
+# Estimated point root (ONE ROOT ONLY) #
 es= 0.0001
+xim1= 3
+xi= 2
 
-#FUNCTIONS-------------------------------------------------------------------------------------------------------------#
+#Secant method---------------------------------------------------------------------------------------------------------#
 def f(x):
-    #i.e
-    #y= x+1
-    #y= pow(x, 2)
-    #y= 4*pow(x, 2) +  7*x + 8
-
-    #Write known funcion
-    #y= g*m*(1-sympy.exp(-x*t/m))/x-40
-    y = (x - sympy.exp(-x))
-
+    y = x - sympy.exp(-x)
     return y
 
-#XI
-def xi1():
-    return float(xi - ( f(xi)*(xim1-xi) / (f(xim1)-f(xi)) ))
-
-#"ERROR"
-def ea():
-    return abs( float((xi1() - xi) / xi1()) )
-
-#Print elapsed Time
-def time():
-    end = timer()
-    print("")
-    print("Time elapsed: ")
-    print(float(end - start))
-
-#SECANT METHOD OF INTERPOLATING----------------------------------------------------------------------------------------#
 i= 0
 while i <= 50:
-    if abs(f(xi1())) < 10**-7:
-        print("i: " + str(i))
-        print(xi1())
+    # General Formula #
+    xi1 = float(xi - (f(xi) * (xim1 - xi) / (f(xim1) - f(xi))))
 
-    if ea() < es:
-        print("i: " + str(i))
-        print(xi1())
+    # Zero check for the function #
+    if abs(f(xi1)) < 10**-7:
+        print("No. of iterations: " + str(i+1))
+        print(xi1)
+        break
 
+    # Convergence criterion #
+    ea = abs(float((xi1 - xi) / xi1))
+
+    if ea < es:
+        print("No. of iterations: " + str(i+1))
+        print(xi1)
+        break
+
+    # Reassignment of the x values #
     xim1= xi
-    xi = xi1()
+    xi = xi1
 
+    # Last iteration -> did not converge #
     if i == 50:
         print("\n Did not converge in any iterations")
 
     i+= 1
 
+#PLOTTING--------------------------------------------------------------------------------------------------------------
+# Assign X and  Y values to axis #
+while startLimit < endLimit:
+    x_values.append(startLimit)
+    y_values.append(f(startLimit))
+    startLimit = startLimit + jump
 
-#PLOTTING--------------------------------------------------------------------------------------------------------------#
-#Styles
-#plt.xkcd()
+# Styles #
+"""plt.xkcd()"""
 
-#Names & Tags
+# Add names and tags #
 fig, ax = plt.subplots()
 ax.set(xlabel= x_name, ylabel= y_name, title=graphTitle)
 
-#Grid
+# Add a grid #
 ax.grid()
 
-#Values
+# Values #
 plt.plot(x_values, y_values, label='Python')
 
-#Plott
-#plt.show()
+# Plott data #
+plt.show()
