@@ -90,4 +90,4 @@ ax.grid()
 plt.plot(x_values, y_values, label='Python')
 
 # Plott data #
-#plt.show()
+plt.show()
