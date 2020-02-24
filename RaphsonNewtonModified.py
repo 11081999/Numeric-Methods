@@ -26,7 +26,7 @@ es= 0.0001
 
 #Raphson-Newton method-------------------------------------------------------------------------------------------------#
 def f(x):
-    y = (x - sympy.exp(-x))
+    y = ((pow(x, 2) - 10*x + 25) * (x - sympy.exp(-3*x)))
     return y
 
 # Find derivate of the function f(x) at a point xi #
