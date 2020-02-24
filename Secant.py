@@ -42,7 +42,7 @@ while i <= 50:
 
     # Zero check for the function #
     if abs(f(xi1)) < 10**-7:
-        print("No. of iterations: " + str(i+1))
+        print("\nNo. of iterations: " + str(i + 1))
         print(xi1)
         break
 
@@ -50,7 +50,7 @@ while i <= 50:
     ea = abs(float((xi1 - xi) / xi1))
 
     if ea < es:
-        print("No. of iterations: " + str(i+1))
+        print("\nNo. of iterations: " + str(i + 1))
         print(xi1)
         break
 
