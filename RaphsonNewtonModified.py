@@ -67,7 +67,7 @@ while i <= 50:
 
     # Last iteration -> did not converge #
     if i == 50:
-        print("\nDid not converge in " + str(i) + "iterations")
+        print("\nDid not converge in " + str(i) + " iterations")
 
     i+= 1
 
