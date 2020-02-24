@@ -36,11 +36,20 @@ def df(xi):
     deriv = Derivative(func, x)
     return float(deriv.doit().subs({x: xi}))
 
+# Find double derivate of the function f(x) at a point xi #
+def ddf(xi):
+    x = Symbol('x')
+    func = f(x)
+    deriv = Derivative(func, x)
+    func2 = deriv
+    deriv2 = Derivative(func2, x)
+    return float(deriv2.doit().subs({x: xi}))
+
 def u(x):
     return float( f(x) / df(x) )
 
 def du(x):
-    return float( ((df(x)*df(x)) - f(x)* df(df(x))) / pow(df(x), 2) )
+    return float( (pow(df(x), 2) - f(x) * ddf(x)) / pow(df(x), 2) )
 
 i= 0
 while i <= 50:
