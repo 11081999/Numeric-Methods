@@ -5,7 +5,7 @@ import sympy
 from sympy import Symbol, Derivative
 
 #GENERAL_PARAMETERS----------------------------------------------------------------------------------------------------#
-graphTitle= "Python Graph"
+graphTitle= "Secant Calculation"
 
 # Data on the X axis #
 x_values = []
@@ -16,56 +16,53 @@ y_values = []
 y_name= "Y"
 
 # Limits of the graph #
-startLimit= 0
-endLimit= 10
+startLimit= -1.5
+endLimit= 1.5
 jump= 0.01
 
 # Estimated point root (ONE ROOT ONLY) #
-xi= 0.5
 es= 0.0001
+xim1= 4
+xi= 2
 
-#mathematicaRoot= 5
-mathematicaRoot= 0.34997
-
-#Raphson-Newton method-------------------------------------------------------------------------------------------------#
+#Secant Perturbationmethod---------------------------------------------------------------------------------------------#
+""""
+This method helps whemn ypu dont know where to start point x1 and x2 in secant
+you make small diferentials to the change instad of a large solpe
+"""
 def f(x):
-    y = ((pow(x, 2) - 10*x + 25) * (x - sympy.exp(-3*x)))
-    return float(y)
-
-# Find derivate of the function f(x) at a point xi #
-def df(xi):
-    x = Symbol('x')
-    func = f(x)
-    deriv = Derivative(func, x)
-    return float(deriv.doit().subs({x: xi}))
+    y= x**8 - 1
+    return y
 
 i= 0
 while i <= 50:
     # General Formula #
-    xi1 = float(xi - f(xi) / df(xi))
+    xi1 = float(xi - (f(xi) * (xim1 - xi) / (f(xim1) - f(xi))))
 
     # Zero check for the function #
-    if abs(f( xi + 1 )) < 10**-7:
+    if abs(f(xi1)) < 10**-7:
         print("\nNo. of iterations: " + str(i + 1))
         print(xi1)
-        print("\nAccuracy: " + str(abs( 1 - ((abs( mathematicaRoot - xi1) / xi1) * 100))) + " %")
+        print("\nea: " + str(ea))
         break
 
     # Convergence criterion #
-    ea = float( abs( (xi1 - xi) / xi1) )
+    ea = abs(float((xi1 - xi) / xi1))
+
     if ea < es:
         print("\nNo. of iterations: " + str(i + 1))
         print(xi1)
-        # Accuracy
-        print("\nAccuracy: " + str(abs( 1 - ((abs( mathematicaRoot - xi1) / xi1) * 100))) + " %")
+        print("\nea: " + str(ea))
         break
 
     # Reassignment of the x values #
+    xim1= xi
     xi = xi1
 
     # Last iteration -> did not converge #
     if i == 50:
         print("\nDid not converge in " + str(i) + " iterations")
+        print("\nea: " + str(ea))
 
     i+= 1
 

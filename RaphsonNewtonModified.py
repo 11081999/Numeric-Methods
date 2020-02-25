@@ -21,8 +21,11 @@ endLimit= 10
 jump= 0.01
 
 # Estimated point root (ONE ROOT ONLY) #
-xi= 2
+xi= 0.5
 es= 0.0001
+
+#mathematicaRoot= 5
+mathematicaRoot= 0.34997
 
 #Raphson-Newton method-------------------------------------------------------------------------------------------------#
 def f(x):
@@ -53,7 +56,6 @@ def du(x):
 
 i= 0
 while i <= 50:
-
     # General Formula #
     xi1 = float(xi - u(xi) / du(xi))
 
@@ -61,14 +63,15 @@ while i <= 50:
     if abs(f( xi + 1 )) < 10**-7:
         print("\nNo. of iterations: " + str(i + 1))
         print(xi1)
+        print("\nAccuracy: " + str(abs(1 - ((abs(mathematicaRoot - xi1) / xi1) * 100))) + " %")
         break
 
     # Convergence criterion #
     ea = float( abs( (xi1 - xi) / xi1) )
-
     if ea < es:
         print("\nNo. of iterations: " + str(i + 1))
         print(xi1)
+        print("\nAccuracy: " + str(abs(1 - ((abs(mathematicaRoot - xi1) / xi1) * 100))) + " %")
         break
 
     # Reassignment of the x values #
@@ -97,8 +100,19 @@ ax.set(xlabel= x_name, ylabel= y_name, title=graphTitle)
 # Add a grid #
 ax.grid()
 
+
+# Highlight Axes#
+ax.spines['left'].set_position('zero')
+ax.spines['right'].set_color('none')
+ax.spines['bottom'].set_position('zero')
+ax.spines['top'].set_color('none')
+ax.spines['left'].set_smart_bounds(True)
+ax.spines['bottom'].set_smart_bounds(True)
+ax.xaxis.set_ticks_position('bottom')
+ax.yaxis.set_ticks_position('left')
+
 # Values #
 plt.plot(x_values, y_values, label='Python')
 
 # Plott data #
-#plt.show()
+plt.show()

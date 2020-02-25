@@ -22,8 +22,11 @@ jump= 0.01
 
 # Estimated point root (ONE ROOT ONLY) #
 es= 0.0001
-xl= 0
+xl= 1
 xu= 100
+
+mathematicaRoot= 5
+#mathematicaRoot= 0.34997
 
 #Bisection method------------------------------------------------------------------------------------------------------#
 def f(x):
@@ -39,6 +42,7 @@ while i <= 50:
     if abs(f(xr)) < 10**-7:
         print("\nNo. of iterations: " + str(i + 1))
         print(xr)
+        print("\nAccuracy: " + str(abs(1 - ((abs(mathematicaRoot - xr) / xr) * 100))) + " %")
         break
 
     # Bisection criterion (where is the root?) #
@@ -56,6 +60,7 @@ while i <= 50:
     if bisCr == 0:
         print("\nNo. of iterations: " + str(i + 1))
         print(xr)
+        print("\nAccuracy: " + str(abs(1 - ((abs(mathematicaRoot - xr) / xr) * 100))) + " %")
         break
 
     # Last iteration -> did not converge #
@@ -64,7 +69,7 @@ while i <= 50:
 
     i+= 1
 
-#PLOTTING--------------------------------------------------------------------------------------------------------------
+#PLOTTING--------------------------------------------------------------------------------------------------------------#
 # Assign X and  Y values to axis #
 while startLimit < endLimit:
     x_values.append(startLimit)
@@ -80,6 +85,17 @@ ax.set(xlabel= x_name, ylabel= y_name, title=graphTitle)
 
 # Add a grid #
 ax.grid()
+
+
+# Highlight Axes#
+ax.spines['left'].set_position('zero')
+ax.spines['right'].set_color('none')
+ax.spines['bottom'].set_position('zero')
+ax.spines['top'].set_color('none')
+ax.spines['left'].set_smart_bounds(True)
+ax.spines['bottom'].set_smart_bounds(True)
+ax.xaxis.set_ticks_position('bottom')
+ax.yaxis.set_ticks_position('left')
 
 # Values #
 plt.plot(x_values, y_values, label='Python')

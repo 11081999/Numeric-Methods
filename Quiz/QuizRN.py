@@ -5,7 +5,7 @@ import sympy
 from sympy import Symbol, Derivative
 
 #GENERAL_PARAMETERS----------------------------------------------------------------------------------------------------#
-graphTitle= "Python Graph"
+graphTitle= "Raphson-Newton Calculation"
 
 # Data on the X axis #
 x_values = []
@@ -16,21 +16,18 @@ y_values = []
 y_name= "Y"
 
 # Limits of the graph #
-startLimit= 0
-endLimit= 10
+startLimit= -1.5
+endLimit= 1.5
 jump= 0.01
 
 # Estimated point root (ONE ROOT ONLY) #
 xi= 0.5
 es= 0.0001
 
-#mathematicaRoot= 5
-mathematicaRoot= 0.34997
-
 #Raphson-Newton method-------------------------------------------------------------------------------------------------#
 def f(x):
-    y = ((pow(x, 2) - 10*x + 25) * (x - sympy.exp(-3*x)))
-    return float(y)
+    y= x**8 - 1
+    return y
 
 # Find derivate of the function f(x) at a point xi #
 def df(xi):
@@ -48,16 +45,16 @@ while i <= 50:
     if abs(f( xi + 1 )) < 10**-7:
         print("\nNo. of iterations: " + str(i + 1))
         print(xi1)
-        print("\nAccuracy: " + str(abs( 1 - ((abs( mathematicaRoot - xi1) / xi1) * 100))) + " %")
+        print("\nea: " + str(ea))
         break
 
     # Convergence criterion #
     ea = float( abs( (xi1 - xi) / xi1) )
+
     if ea < es:
         print("\nNo. of iterations: " + str(i + 1))
         print(xi1)
-        # Accuracy
-        print("\nAccuracy: " + str(abs( 1 - ((abs( mathematicaRoot - xi1) / xi1) * 100))) + " %")
+        print("\nea: " + str(ea))
         break
 
     # Reassignment of the x values #
@@ -66,6 +63,7 @@ while i <= 50:
     # Last iteration -> did not converge #
     if i == 50:
         print("\nDid not converge in " + str(i) + " iterations")
+        print("\nea: " + str(ea))
 
     i+= 1
 
@@ -102,3 +100,9 @@ plt.plot(x_values, y_values, label='Python')
 
 # Plott data #
 plt.show()
+
+"""
+Analisys 
+It takes longer when 
+Thught and ideas
+"""
