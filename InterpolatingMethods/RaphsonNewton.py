@@ -30,7 +30,7 @@ mathematicaRoot= 0.34997
 #Raphson-Newton method-------------------------------------------------------------------------------------------------#
 def f(x):
     y = ((pow(x, 2) - 10*x + 25) * (x - sympy.exp(-3*x)))
-    return float(y)
+    return y
 
 # Find derivate of the function f(x) at a point xi #
 def df(xi):
