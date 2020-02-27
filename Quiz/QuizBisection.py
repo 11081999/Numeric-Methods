@@ -5,7 +5,7 @@ import sympy
 from sympy import Symbol, Derivative
 
 #GENERAL_PARAMETERS----------------------------------------------------------------------------------------------------#
-graphTitle= "Raphson-Newton Calculation"
+graphTitle= "Bisection Calculation"
 
 # Data on the X axis #
 x_values = []
@@ -15,55 +15,57 @@ x_name= "X"
 y_values = []
 y_name= "Y"
 
-# Limits of the graph #
-startLimit= -1.5
-endLimit= 1.5
+# Limits of the graph and jump between points in the graph#
+startLimit= 0
+endLimit= 10
 jump= 0.01
 
 # Estimated point root (ONE ROOT ONLY) #
-xi= -0.1
 es= 0.0001
+xl= 0
+xu= 3
 
-#Raphson-Newton method-------------------------------------------------------------------------------------------------#
+mathematicaRoot= 1
+#mathematicaRoot= 0.34997
+
+#Bisection method------------------------------------------------------------------------------------------------------#
 def f(x):
     y= x**8 - 1
     return y
 
-# Find derivate of the function f(x) at a point xi #
-def df(xi):
-    x = Symbol('x')
-    func = f(x)
-    deriv = Derivative(func, x)
-    return float(deriv.doit().subs({x: xi}))
-
 i= 0
-while i <= 500:
-    # General Formula #
-    xi1 = float(xi - f(xi) / df(xi))
+while i <= 50:
+    # Middle Point  #
+    xr = (xl + xu) / 2
 
     # Zero check for the function #
-    if abs(f( xi + 1 )) < 10**-7:
+    if abs(f(xr)) < 10**-7:
         print("\nNo. of iterations: " + str(i + 1))
-        print(xi1)
-        print("\nea: " + str(ea))
+        print(xr)
+        print("\nAccuracy: " + str(abs(1 - ((abs(mathematicaRoot - xr) / xr) * 100))) + " %")
         break
 
-    # Convergence criterion #
-    ea = float( abs( (xi1 - xi) / xi1) )
+    # Bisection criterion (where is the root?) #
+    bisCr= f(xl) * f(xr)
 
-    if ea < es:
+    # The root lies in the lower sub-interval#
+    if bisCr < 0:
+        xu= xr
+
+    # The root lies in the upper sub-interval#
+    if bisCr > 0:
+        xl= xr
+
+    # The root equals xr #
+    if bisCr == 0:
         print("\nNo. of iterations: " + str(i + 1))
-        print(xi1)
-        print("\nea: " + str(ea))
+        print(xr)
+        print("\nAccuracy: " + str(abs(1 - ((abs(mathematicaRoot - xr) / xr) * 100))) + " %")
         break
-
-    # Reassignment of the x values #
-    xi = xi1
 
     # Last iteration -> did not converge #
-    if i == 500:
+    if i == 50:
         print("\nDid not converge in " + str(i) + " iterations")
-        print("\nea: " + str(ea))
 
     i+= 1
 

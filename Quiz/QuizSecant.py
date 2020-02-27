@@ -22,8 +22,8 @@ jump= 0.01
 
 # Estimated point root (ONE ROOT ONLY) #
 es= 0.0001
-xim1= 4
 xi= 2
+xim1= 1.9
 
 #Secant method---------------------------------------------------------------------------------------------------------#
 def f(x):
@@ -35,15 +35,15 @@ while i <= 50:
     # General Formula #
     xi1 = float(xi - (f(xi) * (xim1 - xi) / (f(xim1) - f(xi))))
 
+    # Convergence criterion #
+    ea = abs(float((xi1 - xi) / xi1))
+
     # Zero check for the function #
     if abs(f(xi1)) < 10**-7:
         print("\nNo. of iterations: " + str(i + 1))
         print(xi1)
         print("\nea: " + str(ea))
         break
-
-    # Convergence criterion #
-    ea = abs(float((xi1 - xi) / xi1))
 
     if ea < es:
         print("\nNo. of iterations: " + str(i + 1))
@@ -94,7 +94,7 @@ ax.yaxis.set_ticks_position('left')
 plt.plot(x_values, y_values, label='Python')
 
 # Plott data #
-plt.show()
+#plt.show()
 
 """
 Analisys 
