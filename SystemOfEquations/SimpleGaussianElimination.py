@@ -2,35 +2,43 @@ import sys
 sys.path.append(r"C:\Users\Roberto\AppData\Local\Programs\Python\Python38-32\Lib\site-packages")
 import numpy as np
 
-matrix= np.array([     [0.2,    2,  -5,   6],
-                        [10,    1, -30,   4],
-                        [ 3,-0.18,  15, -11],
-                        [ 7,  0.3, -20,  15]] )
+matrix= ([   [0.2,    2,  -5,    6],
+             [ 10,    1, -30,    4],
+             [  3,-0.18,  15,  -11],
+             [  7,  0.3, -20,   15]] )
+constants= ([10, -4, 1, 11] )
 
-constants= np.array(      [10,   -4,   1,   11] )
+cons= constants.reverse()
 
-print( "Solutions:\n",np.linalg.solve(matrix, constants ))
+z= np.linalg.solve(matrix, constants )
+
+print( "Solutions:\n" + str(z))
 
 def gauss(matrix, constants):
-    n = len(matrix[0])
-    result= []
+    n = len(matrix[0])-1
+    result= [0, 0, 0, 0]
 
     for k in range(1, n-1):
         for i in range(k+1, n):
             factor= matrix[i][k]/matrix[k][k]
             for j in range(k+1, n):
-                matrix[i][j]= (matrix[i][j] - factor) * matrix[k][j]
-        constants[i]= constants[i]-factor * constants[k]
+                matrix[i][j]= matrix[i][j] - factor * matrix[k][j]
+
+            constants[i]= constants[i]-factor * constants[k]
 
     result[n]= constants[n]/matrix[n][n]
 
-    # Solve equation Ax=b for an upper triangular matrix A
-    result = [0 for i in range(n)]
     for i in range(n - 1, -1, -1):
-        result[i] = matrix[i][n] / matrix[i][i]
-        for k in range(i - 1, -1, -1):
-            matrix[k][n] -= matrix[k][i] * result[i]
+        sum= constants[i]
+        for j in range(i+1, n):
+            sum= sum - matrix[i][j] * result[j]
+        result[i]= sum / matrix[i][i]
+
     return result
+
+print("\nGauss:" + str(gauss(matrix, constants)) )
+
+
 
 def g(A):
     n = len(A)
@@ -68,4 +76,3 @@ def g(A):
     return x
 
 
-print(gauss(matrix, constants));
