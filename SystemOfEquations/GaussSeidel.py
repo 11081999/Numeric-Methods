@@ -2,7 +2,7 @@ import sys
 sys.path.append(r"C:\Users\Roberto\AppData\Local\Programs\Python\Python38-32\Lib\site-packages")
 import numpy as np
 
-a=  np.array([[0.2,    2,  -5,    6],
+a=  np.array([[0.3369,    -0.128,  0.096,    6],
               [ 10,    1, -30,    4],
               [  3,-0.18,  15,  -11],
               [  7,  0.3, -20,   15]] )
