@@ -13,7 +13,11 @@ a=  np.array([[  0.3369,     -0.128,   0.096,    -0.008899,  -0.05332],
               [       1,    -2.2585, -6.6864,            0,         0]] )
 
 #This needs to be a column array?
-b=  np.array([ [P/E*A, 0, 0, P/E*A, 0] ])
+b= np.array([ [P/E*A, 0, 0, P/E*A, 0] ])
+
+#X= np.array([ [ ] ])
+
+#imax=
 
 n = len(a[0])
 
