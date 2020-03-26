@@ -27,24 +27,21 @@ for i in range(1, n):
             if i != j:
                 sum= sum - a[i][j]*X[j]
         X[i]= sum
-
 iter= 1
 
+sentinel= 1
+for i in range(1, n):
+    old= X[i]
+    sum= b[i]
+    for j in range(1, n):
+        if i != j:
+            sum= sum - a[i][j] * X[j]
 
-while sentinel== 1:
-    for i in range(1, n):
-        old= X[i]
-        sum= b[i]
-        for j in range(1, n):
-            if i != j:
-                sum= sum - a[i][j] * X[j]
-
-        X[i]= lambda*sum + (1.0-lambda)*old
-        if sentinel == 1 and X[i] != 0:
-            ea= abs((X[i]-old)/X[i])*100
-            if ea > es:
-                sentinel= 0
-        iter= iter + 1
-        if sentinel == 1 or iter >= imax
-            break
-            
+    X[i]= lambda*sum + (1.0-lambda)*old
+    if sentinel == 1 and X[i] != 0:
+        ea= abs((X[i]-old)/X[i])*100
+        if ea > es:
+            sentinel= 0
+    iter= iter + 1
+    if sentinel == 1 or iter >= imax:
+        break
