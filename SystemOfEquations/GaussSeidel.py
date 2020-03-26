@@ -44,3 +44,7 @@ while sentinel== 1:
             ea= abs((X[i]-old)/X[i])*100
             if ea > es:
                 sentinel= 0
+        iter= iter + 1
+        if sentinel == 1 or iter >= imax
+            break
+            
