@@ -15,9 +15,9 @@ a=  np.array([[  0.3369,     -0.128,   0.096,    -0.008899,  -0.05332],
 #This needs to be a column array?
 b= np.array([ [P/E*A, 0, 0, P/E*A, 0] ])
 
-#X= np.array([ [ ] ])
+X= np.array([ [0, 0, 0, 0, 0 ] ])
 
-#imax=
+imax= 5
 
 n = len(a[0])
 

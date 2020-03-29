@@ -21,7 +21,7 @@ endLimit= 1.5
 jump= 0.01
 
 # Estimated point root (ONE ROOT ONLY) #
-xi= -0.1
+xi= 1.5
 es= 0.0001
 
 #Raphson-Newton method-------------------------------------------------------------------------------------------------#

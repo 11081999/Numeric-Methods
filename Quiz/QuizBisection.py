@@ -23,7 +23,7 @@ jump= 0.01
 # Estimated point root (ONE ROOT ONLY) #
 es= 0.0001
 xl= 0
-xu= 3
+xu= 5
 
 mathematicaRoot= 1
 #mathematicaRoot= 0.34997

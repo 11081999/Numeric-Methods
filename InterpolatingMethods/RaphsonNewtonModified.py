@@ -21,15 +21,14 @@ endLimit= 10
 jump= 0.01
 
 # Estimated point root (ONE ROOT ONLY) #
-xi= 0.5
+xi= 1.5
 es= 0.0001
 
-#mathematicaRoot= 5
-mathematicaRoot= 0.34997
+mathematicaRoot= 1
 
 #Raphson-Newton method-------------------------------------------------------------------------------------------------#
 def f(x):
-    y = ((pow(x, 2) - 10*x + 25) * (x - sympy.exp(-3*x)))
+    y= x**8 - 1
     return y
 
 # Find derivate of the function f(x) at a point xi #
@@ -68,6 +67,7 @@ while i <= 50:
 
     # Convergence criterion #
     ea = float( abs( (xi1 - xi) / xi1) )
+
     if ea < es:
         print("\nNo. of iterations: " + str(i + 1))
         print(xi1)
