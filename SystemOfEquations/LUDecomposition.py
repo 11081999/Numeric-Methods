@@ -4,7 +4,6 @@ import numpy as np
 
 np.set_printoptions(suppress=True)
 
-#This matrix is U
 a= np.array([   [0.2,    2,  -5,    6],
                 [ 10,    1, -30,    4],
                 [  3,-0.18,  15,  -11],
