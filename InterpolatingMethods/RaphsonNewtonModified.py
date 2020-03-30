@@ -54,7 +54,7 @@ def du(x):
     return float( (pow(df(x), 2) - f(x) * ddf(x)) / pow(df(x), 2) )
 
 i= 0
-while i <= 50:
+while i <= 500:
     # General Formula #
     xi1 = float(xi - u(xi) / du(xi))
 
@@ -78,7 +78,7 @@ while i <= 50:
     xi = xi1
 
     # Last iteration -> did not converge #
-    if i == 50:
+    if i == 500:
         print("\nDid not converge in " + str(i) + " iterations")
 
     i+= 1
