@@ -1,64 +1,43 @@
-import sys
-sys.path.append(r"C:\Users\Roberto\AppData\Local\Programs\Python\Python38-32\Lib\site-packages")
-import numpy as np
 
-np.set_printoptions(suppress=True)
+a=  [[0.2,    2,  -5,    6],
+     [ 10,    1, -30,    4],
+     [  3,-0.18,  15,  -11],
+     [  7,  0.3, -20,   15],
+     [  10.0,  -4.0, -1.0,   -11.0],  ]
 
-matrix= np.array([  [0.2,    2,  -5,    6],
-                    [ 10,    1, -30,    4],
-                    [  3,-0.18,  15,  -11],
-                    [  7,  0.3, -20,   15]   ] )
-
-constants= np.array([ [10.0], [-4.0], [1.0], [-11.0]])
-
-#print("\nmatrix: ")
-#print(str(a))
-#print("\nb matrix: ")
-#print(str(b))
-
-imax= 4
-es= 0.0001
-lam= 1.2
-
-def sidel(a, b):
-    n = len(a[0]) - 1
+def gaussSeidel(a, imax, es, l):
+    n = len(a[0])-1
     print("\nn: " + str(n))
-    # NUMPY ARRAYS CONSIST OF THE SAME DATA TYPES, I WANT THEM TO BE FLOATS!!!!!!!
-    X = np.array([[0.0 for i in range(n + 1)]])
-
-    for i in range(1, n +1):
+    x = [0.0 for i in range(n +1)]
+    for i in range(n +1):
         dummy = a[i][i]
-        for j in range(1, n +1):
-            a[i][j] = a[i][j] / dummy
+        for j in range(n +1):
+            a[i][j] /= dummy
 
-        b[i] = b[i] / dummy
-
-        for i in range(1, n +1):
-            sum = b[i]
-            for j in range(1, n +1):
-                if i != j:
-                    sum = sum - a[i][j] * X[j]
-            X[i] = sum
-
+        a[i][n] /= dummy
+    for i in range(n +1):
+        sum = a[i][n]
+        for j in range(n +1):
+            if i != j:
+                sum -= a[i][j] * x[j]
+        x[i] = sum
     iter = 1
-    sentinel= 1
-    while sentinel == 1:
-        for i in range(1, n +1):
-            old = X[i]
-            sum = b[i]
-            for j in range(1, n +1):
+    sentinel = 0
+    while not(sentinel == 1 or iter >= imax):
+        sentinel = 1
+        for i in range(n +1):
+            old = x[i]
+            sum = a[i][n]
+            for j in range(n +1):
                 if i != j:
-                    sum = sum - a[i][j] * X[j]
-            X[i] = lam *sum + (1.0 - lam) * old
-            if sentinel == 1 and X[i] != 0:
-                ea = abs((X[i] - old) / X[i])
+                    sum -= a[i][j] * x[j]
+            x[i] = l * sum + (1 - l) * old
+            if sentinel == 1 and x[i] != 0:
+                ea = abs((x[i] - old) / x[i]) * 100
                 if ea > es:
                     sentinel = 0
-            iter = iter + 1
-            if sentinel == 1 or iter >= imax:
-                break
+        iter+=1
+    print("\nGauss-Seidel:")
+    print(x)
 
-    print("\nFinal result: ")
-    return X
-
-print(str(sidel(matrix, constants)))
+gaussSeidel(a, 100, 0.0001, 1)
