@@ -24,7 +24,7 @@ def sidel(a, b):
     n = len(a[0]) - 1
     print("\nn: " + str(n))
     # NUMPY ARRAYS CONSIST OF THE SAME DATA TYPES, I WANT THEM TO BE FLOATS!!!!!!!
-    X = np.array([[0.0 for i in range(n + 1)] for i in range(n + 1)])
+    X = np.array([[0.0 for i in range(n + 1)]])
 
     for i in range(1, n +1):
         dummy = a[i][i]
