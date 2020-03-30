@@ -3,6 +3,7 @@ a=  [[ 0.2,    2,  -5,    6],
      [  10,    1, -30,    4],
      [   3,-0.18,  15,  -11],
      [   7,  0.3, -20,   15],
+
      [10.0, -4.0,-1.0,-11.0],  ]
 
 def gaussSeidel(a, imax, es, l):
@@ -12,14 +13,12 @@ def gaussSeidel(a, imax, es, l):
     for i in range(n):
         dummy = a[i][i]
         for j in range(n):
-            print("\ni: " + str(i))
-            print("\nj: " + str(j))
-            print("\naij: " + str(a[0][3]))
+
             a[i][j] /= dummy
 
-        a[i][n] /= dummy
+        a[i][n-1] /= dummy
     for i in range(n):
-        sum = a[i][n]
+        sum = a[i][n-1]
         for j in range(n):
             if i != j:
                 sum -= a[i][j] * x[j]
@@ -30,7 +29,7 @@ def gaussSeidel(a, imax, es, l):
         sentinel = 1
         for i in range(n):
             old = x[i]
-            sum = a[i][n]
+            sum = a[i][n-1]
             for j in range(n):
                 if i != j:
                     sum -= a[i][j] * x[j]
@@ -43,4 +42,4 @@ def gaussSeidel(a, imax, es, l):
     print("\nGauss-Seidel:")
     print(x)
 
-gaussSeidel(a, 100, 0.0001, 1)
+gaussSeidel(a, 20, 0.00001, 2)
